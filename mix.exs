@@ -5,7 +5,7 @@ defmodule Snapshot.MixProject do
     [
       app: :snapshot,
       version: "0.1.0",
-      elixir: "~> 1.7-dev",
+      elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "Snapshots, make testing fast",
@@ -30,7 +30,8 @@ defmodule Snapshot.MixProject do
 
   defp deps do
     [
-      {:pre_commit, "~> 0.2.4", only: :dev}
+      {:pre_commit, "~> 0.2.4", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 end
