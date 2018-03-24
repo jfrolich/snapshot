@@ -9,7 +9,8 @@ defmodule Snapshot.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "Snapshots, make testing fast",
-      package: package()
+      package: package(),
+      docs: [main: "Snapshot"]
     ]
   end
 

@@ -7,6 +7,6 @@ defmodule Mix.Tasks.ConvertReadme do
 
     File.cwd!()
     |> Path.join("README.md")
-    |> File.write!(text)
+    |> File.write!("# Snapshot\n\n#{text}")
   end
 end

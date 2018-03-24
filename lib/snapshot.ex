@@ -1,7 +1,5 @@
 defmodule Snapshot do
   @moduledoc """
-  # Snapshot
-
   Snapshot is a library that makes testing code that has side-effects or is really slow for other reasons
   as fast and relyable as your other tests, without writing a single line of code.
 
@@ -24,29 +22,35 @@ defmodule Snapshot do
   It's good practice to seperate out the client with side effects in a seperate module. Say we have
   a HTTP client that looks like this:
 
-    defmodule Client
-      def get(url) do
-        ...
-      end
+  ```elixir
+  defmodule Client
+    def get(url) do
+      ...
     end
+  end
+  ```
 
   To add Snapshot to this module and make tests of another Module that uses Client very fast we
   only need to do this:
 
-    defmodule Client
-      use Snapshot
+  ```elixir
+  defmodule Client
+    use Snapshot
 
-      def get(url) do
-        ...
-      end
+    def get(url) do
+      ...
     end
+  end
+  ```
 
   Now our tests will create and use snapshots when the get function is used. Snapshot will do
   this for all public (`def`) functions in the module. The default folder where snapshots are
   saved is in `<your project>/test/snapshots` (but this can be configured by settting the `dir`
   option in the configuration:
 
-    config :snapshot, dir: Path.join([__DIR__, "..", "test", "snapshots"])
+  ```elixir
+  config :snapshot, dir: Path.join([File.cwd!, "test", "snapshots"])
+  ```
 
   If you'd like to remove the cached result just remove this folder (or specific files).
 
@@ -54,13 +58,15 @@ defmodule Snapshot do
   you can add the following afther the snapshots have been created. Now we get an error if a URL is requested
   where we do not have a snapshot from yet.
 
-    defmodule Client
-      use Snapshot, locked: true
+  ```elixir
+  defmodule Client
+    use Snapshot, locked: true
 
-      def get(url) do
-        ...
-      end
+    def get(url) do
+      ...
     end
+  end
+  ```
 
   The best thing about this? Due to the macro system, in production or development the snapshot
   code is completely omitted. This means that adding snapshot has zero performance impact for
